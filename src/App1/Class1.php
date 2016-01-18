@@ -14,5 +14,8 @@ class Class1
     {
         $var3 = 'var3';
         $var4 = 'var4';
+        //test1
+        //test2
+        //test3
     }
 }
