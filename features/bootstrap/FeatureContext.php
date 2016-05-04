@@ -25,6 +25,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function step($arg1)
     {
+        throw new \Exception('ERROR');
         // step definition
     }
 }
