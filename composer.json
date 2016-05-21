@@ -1,4 +1,7 @@
 {
+  "config": {
+    "bin-dir": "scripts"
+  },
   "name": "continuousphptest/workflow-test",
   "homepage": "http://continuousphp.com/",
   "require": {
