@@ -5,7 +5,8 @@
     "php": ">=5.5",
     "doctrine/doctrine-orm-module": "0.9.1",
     "continuousphp/phing-tasks": "0.1.3",
-    "guzzlehttp/guzzle-services": "~0.5"
+    "guzzlehttp/guzzle-services": "~0.5",
+    "bepark/lib-basics": "*"
   },
   "require-dev": {
     "codeception/codeception": "~2.0",
@@ -35,5 +36,11 @@
       "echo 'test post install 1'",
       "echo 'test post install 2'"
     ]
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://apu.bepark.it:14043/"
+    }
+  ]
 }
