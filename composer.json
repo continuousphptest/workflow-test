@@ -15,7 +15,7 @@
     "behat/mink": "~1.7.0",
     "behat/mink-extension": "*",
     "behat/mink-browserkit-driver": "*",
-    "behat/mink-selenium2-driver": "*",
+    "behat/mink-selenium2-driver": "*",xxxxx
     "squizlabs/php_codesniffer": "2.3.0",
     "fabpot/php-cs-fixer": "1.6.1",
     "atoum/atoum": "2.0.1",
