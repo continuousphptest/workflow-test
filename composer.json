@@ -28,8 +28,7 @@
   },
   "scripts": {
     "pre-install-cmd": [
-      "sudo apt-get update",
-      "sudo apt-get install php-mongodb",
+      "sudo pecl install mongodb",
       "echo 'test pre install 1'",
       "echo 'test pre install 2'"
     ],
