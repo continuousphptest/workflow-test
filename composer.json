@@ -28,6 +28,7 @@
   },
   "scripts": {
     "pre-install-cmd": [
+      "sudo apt-get install php-mongodb",
       "echo 'test pre install 1'",
       "echo 'test pre install 2'"
     ],
