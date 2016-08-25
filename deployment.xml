@@ -4,7 +4,7 @@
     <type>application</type>
     <name>WorkflowTest5</name>
     <summary>WorkflowTest5 Summary</summary>
-    <description>Test Application</description>
+    <description>TestApplication</description>
     <version>
         <release>dev-master</release>
     </version>
