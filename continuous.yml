@@ -1,8 +1,155 @@
-deployment:
-  hooks:
-    AfterInstall:
-      - command: echo 'the application is successfully installed'
-    BeforeActivate:
-      - command: echo 'the application is going to start'
-    AfterActivate:
-      - command: echo 'the application has started'
+php:
+  - "5.6.4"
+
+document_root: public
+
+provisioning:
+  dependency_managers:
+    composer: composer.json
+  task_managers:
+    phing: build.xml
+
+package:
+  test:
+    dependency_managers:
+      composer:
+        run_hooks: true
+    environment_variables:
+      VAR3: val3
+      VAR4: val4
+    before_package:
+      phing:
+        targets:
+          - remove-patched-packages
+          - install-composer-dependencies
+          - build-continuousphp
+          - build-dev
+        properties:
+          drupal.db.user: root
+          drupal.db.password: ~
+          behat.webdriver_url: http://selenium:4444/wd/hub
+          drupal.base_url: http://application
+      shell_commands:
+        - cd /path/one && ./script1.sh
+        - cd /path/two && ./script2.sh
+  dist:
+    dependency_managers:
+      composer:
+        run_hooks: true
+    environment_variables:
+      VAR5: val5
+      VAR6: val6
+    before_package:
+      phing:
+        targets:
+          - target1
+          - target2
+        properties:
+          property1: value1
+          property2: value2
+      shell_commands:
+        - cd /path/three && ./script3.sh
+        - cd /path/four && ./script4.sh
+tests:
+  behat:
+    blocking: true
+    progress_format: true
+    strict_mode: true
+    paths:
+      - tests/behat1.yml
+      - tests/behat2.yml
+    environment_variables:
+      VAR7: val7
+      VAR8: val8
+    before_test:
+      phing:
+        targets:
+          - setup-continuousphp
+          - install-dev
+        properties:
+          drupal.db.user: root
+          drupal.db.password: ~
+          behat.webdriver_url: http://selenium:4444/wd/hub
+          drupal.base_url: http://application
+      shell_commands:
+        - cd /path/five && ./script5.sh
+        - cd /path/six && ./script6.sh
+  phpunit:
+    blocking: true
+    paths:
+      - web/phpunit.xml
+    environment_variables:
+      VAR9: val9
+      VAR10: val10
+    before_test:
+      phing:
+        targets:
+          - setup-virtuoso-permissions
+          - setup-phpunit
+        properties:
+          phpunit.db_url: sqlite://tmp/db.sql
+      shell_commands:
+        - cd /path/seven && ./script7.sh
+        - cd /path/eight && ./script8.sh
+  phpcs:
+    blocking: true
+    php: 7.0
+    paths:
+      - phpcs.xml
+    before_test:
+      phing:
+        targets:
+          - setup-php-codesniffer
+      shell_commands:
+        - cd /path/nine && ./script9.sh
+        - cd /path/ten && ./script10.sh
+
+pipelines:
+  - reference: refs/heads/master
+    package:
+      dist:
+        before_package:
+          phing:
+            targets:
+              - remove-patched-packages
+              - install-composer-dependencies
+              - build-continuousphp
+              - import-rdf-fixtures
+              - compile-sass
+              - provision-stack
+            properties:
+              cf.KeyName: gboddin
+              cf.stackName: demo
+              deploy.applicationName: joinup
+              aws.profile: joinup
+              github.ssh.keys: gboddin,sandervd,pfrenssen,idimopoulos
+          shell_commands:
+            - cd /path/A && ./scriptA.sh
+            - cd /path/B && ./scriptB.sh
+    tests:
+      behat:
+        blocking: false
+        before_test:
+          shell_commands:
+            - cd /path/C && ./scriptC.sh
+            - cd /path/D && ./scriptD.sh
+        environment_variables:
+          VARA: valA
+          VARB: valB
+      phpunit:
+        blocking: false
+      phpcs:
+        blocking: false
+        environment_variables:
+          VARC: valC
+          VARD: valD
+    deployment:
+      type: aws-code-deploy
+      destinations:
+        - name: Demo
+          apply_to: push
+          iam_profile: joinup
+          application: joinup
+          group: uat
+          s3_bucket: s3://test/abc
+          suffix_deployment_group_with_pr_number: true
