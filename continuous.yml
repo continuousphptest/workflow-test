@@ -1,8 +1,0 @@
-deployment:
-  hooks:
-    AfterInstall:
-      - command: echo 'the application is successfully installed'
-    BeforeActivate:
-      - command: echo 'the application is going to start'
-    AfterActivate:
-      - command: echo 'the application has started'
