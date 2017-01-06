@@ -27,6 +27,7 @@
     </target>
 
     <target name="help" description="List available targets">
+        <echo message="Testvar: ${testvar}"/>
         <exec executable="phing.phar"
               passthru="true">
             <arg value="-l"/>
