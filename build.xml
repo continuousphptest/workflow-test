@@ -8,6 +8,9 @@
 
 
 
+
+
+
     <property file="./build.properties" />
 
     <target name="download-frontend-package" description="Download frontend package">
