@@ -26,5 +26,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function step($arg1)
     {
         // step definition
+        if ($arg1 == 4) {
+            throw new \Exception('ERROR!!');
+        }
     }
 }
