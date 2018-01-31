@@ -5,5 +5,5 @@ Feature: Feature 1
 
   Scenario: Test bla bla
     Given step 1
-    When step 2
+    When step 4
     Then step 3
