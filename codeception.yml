@@ -12,6 +12,7 @@ paths:
     tests: tests
     data: tests/_data
     support: tests/_support
+    output: tests/_output
     envs: tests/_envs
 settings:
     bootstrap: _bootstrap.php
